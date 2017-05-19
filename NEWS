@@ -1,6 +1,19 @@
     GTK VNC News
     ============
 
+May 19, 2017: Release 0.7.1
+===========================
+
+ o Explicitly link to GIO instead of relying
+   on implicit linkage
+ o Switch to use new keycodemap database module
+ o Fix size of reserved data in class struct
+ o Fix inverted framebuffer args in test case
+ o Avoid sign extension in integer arithmetic
+ o Avoid crash when opening a GSocketAddress
+ o Fix crash if server connection times out
+ o Fix incompatibility with libvncserver
+
 Feb  9, 2017: Release 0.7.0
 ===========================
 

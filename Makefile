@@ -1,5 +1,5 @@
 PKG_NAME := gtk-vnc
-URL := http://ftp.gnome.org/pub/gnome/sources/gtk-vnc/0.7/gtk-vnc-0.7.0.tar.xz
+URL := https://download.gnome.org/sources/gtk-vnc/0.7/gtk-vnc-0.7.1.tar.xz
 
 
 include ../common/Makefile.common
