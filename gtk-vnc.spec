@@ -4,7 +4,7 @@
 #
 Name     : gtk-vnc
 Version  : 0.7.2
-Release  : 4
+Release  : 5
 URL      : https://download.gnome.org/sources/gtk-vnc/0.7/gtk-vnc-0.7.2.tar.xz
 Source0  : https://download.gnome.org/sources/gtk-vnc/0.7/gtk-vnc-0.7.2.tar.xz
 Summary  : A GTK2 widget for VNC clients
