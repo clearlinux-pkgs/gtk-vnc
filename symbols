@@ -145,3 +145,5 @@ libgvnc-1.0.so.0:vnc_util_get_debug
 libgvnc-1.0.so.0:vnc_util_get_version
 libgvnc-1.0.so.0:vnc_util_get_version_string
 libgvnc-1.0.so.0:vnc_util_set_debug
+libgvncpulse-1.0.so.0:vnc_audio_pulse_get_type
+libgvncpulse-1.0.so.0:vnc_audio_pulse_new
