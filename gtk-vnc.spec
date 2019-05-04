@@ -4,18 +4,18 @@
 #
 Name     : gtk-vnc
 Version  : 0.9.0
-Release  : 9
+Release  : 10
 URL      : https://download.gnome.org/sources/gtk-vnc/0.9/gtk-vnc-0.9.0.tar.xz
 Source0  : https://download.gnome.org/sources/gtk-vnc/0.9/gtk-vnc-0.9.0.tar.xz
-Summary  : A GTK2 widget for VNC clients
+Summary  : A VNC viewer widget for GTK+
 Group    : Development/Tools
 License  : LGPL-2.1 LGPL-2.1+
-Requires: gtk-vnc-bin
-Requires: gtk-vnc-data
-Requires: gtk-vnc-lib
-Requires: gtk-vnc-license
-Requires: gtk-vnc-locales
-Requires: gtk-vnc-man
+Requires: gtk-vnc-bin = %{version}-%{release}
+Requires: gtk-vnc-data = %{version}-%{release}
+Requires: gtk-vnc-lib = %{version}-%{release}
+Requires: gtk-vnc-license = %{version}-%{release}
+Requires: gtk-vnc-locales = %{version}-%{release}
+Requires: gtk-vnc-man = %{version}-%{release}
 BuildRequires : buildreq-gnome
 BuildRequires : gettext
 BuildRequires : intltool
@@ -41,9 +41,8 @@ allowing it to be completely asynchronous while remaining single threaded.
 %package bin
 Summary: bin components for the gtk-vnc package.
 Group: Binaries
-Requires: gtk-vnc-data
-Requires: gtk-vnc-license
-Requires: gtk-vnc-man
+Requires: gtk-vnc-data = %{version}-%{release}
+Requires: gtk-vnc-license = %{version}-%{release}
 
 %description bin
 bin components for the gtk-vnc package.
@@ -60,10 +59,11 @@ data components for the gtk-vnc package.
 %package dev
 Summary: dev components for the gtk-vnc package.
 Group: Development
-Requires: gtk-vnc-lib
-Requires: gtk-vnc-bin
-Requires: gtk-vnc-data
-Provides: gtk-vnc-devel
+Requires: gtk-vnc-lib = %{version}-%{release}
+Requires: gtk-vnc-bin = %{version}-%{release}
+Requires: gtk-vnc-data = %{version}-%{release}
+Provides: gtk-vnc-devel = %{version}-%{release}
+Requires: gtk-vnc = %{version}-%{release}
 
 %description dev
 dev components for the gtk-vnc package.
@@ -72,8 +72,8 @@ dev components for the gtk-vnc package.
 %package lib
 Summary: lib components for the gtk-vnc package.
 Group: Libraries
-Requires: gtk-vnc-data
-Requires: gtk-vnc-license
+Requires: gtk-vnc-data = %{version}-%{release}
+Requires: gtk-vnc-license = %{version}-%{release}
 
 %description lib
 lib components for the gtk-vnc package.
@@ -111,7 +111,14 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1536470304
+export SOURCE_DATE_EPOCH=1557013537
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 %configure --disable-static --with-gtk=3.0 --without-sasl --disable-vala
 make  %{?_smp_mflags}
 
@@ -123,10 +130,10 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1536470304
+export SOURCE_DATE_EPOCH=1557013537
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/gtk-vnc
-cp COPYING.LIB %{buildroot}/usr/share/doc/gtk-vnc/COPYING.LIB
+mkdir -p %{buildroot}/usr/share/package-licenses/gtk-vnc
+cp COPYING.LIB %{buildroot}/usr/share/package-licenses/gtk-vnc/COPYING.LIB
 %make_install
 %find_lang gtk-vnc
 
@@ -183,11 +190,11 @@ cp COPYING.LIB %{buildroot}/usr/share/doc/gtk-vnc/COPYING.LIB
 /usr/lib64/libgvncpulse-1.0.so.0.0.1
 
 %files license
-%defattr(-,root,root,-)
-/usr/share/doc/gtk-vnc/COPYING.LIB
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/gtk-vnc/COPYING.LIB
 
 %files man
-%defattr(-,root,root,-)
+%defattr(0644,root,root,0755)
 /usr/share/man/man1/gvnccapture.1
 
 %files locales -f gtk-vnc.lang
