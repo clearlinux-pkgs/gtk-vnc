@@ -4,10 +4,10 @@
 #
 Name     : gtk-vnc
 Version  : 0.9.0
-Release  : 10
+Release  : 11
 URL      : https://download.gnome.org/sources/gtk-vnc/0.9/gtk-vnc-0.9.0.tar.xz
 Source0  : https://download.gnome.org/sources/gtk-vnc/0.9/gtk-vnc-0.9.0.tar.xz
-Summary  : A VNC viewer widget for GTK+
+Summary  : A GTK2 widget for VNC clients
 Group    : Development/Tools
 License  : LGPL-2.1 LGPL-2.1+
 Requires: gtk-vnc-bin = %{version}-%{release}
@@ -33,6 +33,7 @@ BuildRequires : pkgconfig(gthread-2.0)
 BuildRequires : pkgconfig(gtk+-3.0)
 BuildRequires : pkgconfig(x11)
 BuildRequires : pulseaudio-dev
+BuildRequires : vala-dev
 
 %description
 gtk-vnc is a VNC viewer widget for GTK2. It is built using coroutines
@@ -111,7 +112,8 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1557013537
+export SOURCE_DATE_EPOCH=1558369249
+export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
@@ -119,7 +121,7 @@ export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
 export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
 export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
-%configure --disable-static --with-gtk=3.0 --without-sasl --disable-vala
+%configure --disable-static --with-gtk=3.0 --without-sasl --enable-vala
 make  %{?_smp_mflags}
 
 %check
@@ -130,7 +132,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1557013537
+export SOURCE_DATE_EPOCH=1558369249
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/gtk-vnc
 cp COPYING.LIB %{buildroot}/usr/share/package-licenses/gtk-vnc/COPYING.LIB
@@ -150,6 +152,12 @@ cp COPYING.LIB %{buildroot}/usr/share/package-licenses/gtk-vnc/COPYING.LIB
 /usr/lib64/girepository-1.0/GVncPulse-1.0.typelib
 /usr/lib64/girepository-1.0/GtkVnc-2.0.typelib
 /usr/share/gir-1.0/*.gir
+/usr/share/vala/vapi/gtk-vnc-2.0.deps
+/usr/share/vala/vapi/gtk-vnc-2.0.vapi
+/usr/share/vala/vapi/gvnc-1.0.deps
+/usr/share/vala/vapi/gvnc-1.0.vapi
+/usr/share/vala/vapi/gvncpulse-1.0.deps
+/usr/share/vala/vapi/gvncpulse-1.0.vapi
 
 %files dev
 %defattr(-,root,root,-)

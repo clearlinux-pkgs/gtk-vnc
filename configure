@@ -1,1 +1,1 @@
---with-gtk=3.0 --without-sasl --disable-vala
+--with-gtk=3.0 --without-sasl --enable-vala
