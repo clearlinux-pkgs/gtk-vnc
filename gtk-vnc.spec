@@ -4,7 +4,7 @@
 #
 Name     : gtk-vnc
 Version  : 0.9.0
-Release  : 11
+Release  : 12
 URL      : https://download.gnome.org/sources/gtk-vnc/0.9/gtk-vnc-0.9.0.tar.xz
 Source0  : https://download.gnome.org/sources/gtk-vnc/0.9/gtk-vnc-0.9.0.tar.xz
 Summary  : A GTK2 widget for VNC clients
@@ -21,6 +21,7 @@ BuildRequires : gettext
 BuildRequires : intltool
 BuildRequires : libgcrypt-dev
 BuildRequires : libgpg-error-dev
+BuildRequires : libgpg-error-extras
 BuildRequires : perl
 BuildRequires : perl(XML::Parser)
 BuildRequires : pkgconfig(cairo)
@@ -29,6 +30,7 @@ BuildRequires : pkgconfig(gio-2.0)
 BuildRequires : pkgconfig(gio-unix-2.0)
 BuildRequires : pkgconfig(gnutls)
 BuildRequires : pkgconfig(gobject-2.0)
+BuildRequires : pkgconfig(gpg-error)
 BuildRequires : pkgconfig(gthread-2.0)
 BuildRequires : pkgconfig(gtk+-3.0)
 BuildRequires : pkgconfig(x11)
@@ -112,7 +114,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1558369249
+export SOURCE_DATE_EPOCH=1558374824
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -132,7 +134,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1558369249
+export SOURCE_DATE_EPOCH=1558374824
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/gtk-vnc
 cp COPYING.LIB %{buildroot}/usr/share/package-licenses/gtk-vnc/COPYING.LIB
