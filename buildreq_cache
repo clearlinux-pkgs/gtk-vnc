@@ -1,5 +1,9 @@
-0.9.0
+1.0.0
+gnutls-dev
 libgcrypt-dev
 libgpg-error-dev
 perl
+pkgconfig(gnutls)
+pkgconfig(libpulse-simple)
+pkgconfig(libsasl2)
 pulseaudio-dev
