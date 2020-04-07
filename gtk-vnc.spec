@@ -4,7 +4,7 @@
 #
 Name     : gtk-vnc
 Version  : 1.0.0
-Release  : 13
+Release  : 14
 URL      : https://download.gnome.org/sources/gtk-vnc/1.0/gtk-vnc-1.0.0.tar.xz
 Source0  : https://download.gnome.org/sources/gtk-vnc/1.0/gtk-vnc-1.0.0.tar.xz
 Summary  : A GTK widget for VNC clients
@@ -100,29 +100,37 @@ man components for the gtk-vnc package.
 
 %prep
 %setup -q -n gtk-vnc-1.0.0
+cd %{_builddir}/gtk-vnc-1.0.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1570546644
+export SOURCE_DATE_EPOCH=1586237034
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
 export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --libdir=lib64 --prefix=/usr --buildtype=plain   builddir
 ninja -v -C builddir
 
+%check
+export LANG=C.UTF-8
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost,127.0.0.1,0.0.0.0
+meson test -C builddir
+
 %install
 mkdir -p %{buildroot}/usr/share/package-licenses/gtk-vnc
-cp COPYING.LIB %{buildroot}/usr/share/package-licenses/gtk-vnc/COPYING.LIB
-cp subprojects/keycodemapdb/LICENSE.BSD %{buildroot}/usr/share/package-licenses/gtk-vnc/subprojects_keycodemapdb_LICENSE.BSD
-cp subprojects/keycodemapdb/LICENSE.GPL2 %{buildroot}/usr/share/package-licenses/gtk-vnc/subprojects_keycodemapdb_LICENSE.GPL2
+cp %{_builddir}/gtk-vnc-1.0.0/COPYING.LIB %{buildroot}/usr/share/package-licenses/gtk-vnc/81221edbef5521188d99b7c699d326e85b8c3e87
+cp %{_builddir}/gtk-vnc-1.0.0/subprojects/keycodemapdb/LICENSE.BSD %{buildroot}/usr/share/package-licenses/gtk-vnc/ea5b412c09f3b29ba1d81a61b878c5c16ffe69d8
+cp %{_builddir}/gtk-vnc-1.0.0/subprojects/keycodemapdb/LICENSE.GPL2 %{buildroot}/usr/share/package-licenses/gtk-vnc/06877624ea5c77efe3b7e39b0f909eda6e25a4ec
 DESTDIR=%{buildroot} ninja -C builddir install
 %find_lang gtk-vnc
 
@@ -186,9 +194,9 @@ DESTDIR=%{buildroot} ninja -C builddir install
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/gtk-vnc/COPYING.LIB
-/usr/share/package-licenses/gtk-vnc/subprojects_keycodemapdb_LICENSE.BSD
-/usr/share/package-licenses/gtk-vnc/subprojects_keycodemapdb_LICENSE.GPL2
+/usr/share/package-licenses/gtk-vnc/06877624ea5c77efe3b7e39b0f909eda6e25a4ec
+/usr/share/package-licenses/gtk-vnc/81221edbef5521188d99b7c699d326e85b8c3e87
+/usr/share/package-licenses/gtk-vnc/ea5b412c09f3b29ba1d81a61b878c5c16ffe69d8
 
 %files man
 %defattr(0644,root,root,0755)
