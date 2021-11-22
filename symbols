@@ -22,6 +22,7 @@ libgtk-vnc-2.0.so.0:vnc_display_get_pixbuf
 libgtk-vnc-2.0.so.0:vnc_display_get_pointer_grab
 libgtk-vnc-2.0.so.0:vnc_display_get_pointer_local
 libgtk-vnc-2.0.so.0:vnc_display_get_read_only
+libgtk-vnc-2.0.so.0:vnc_display_get_rotation
 libgtk-vnc-2.0.so.0:vnc_display_get_scaling
 libgtk-vnc-2.0.so.0:vnc_display_get_shared_flag
 libgtk-vnc-2.0.so.0:vnc_display_get_smoothing
@@ -51,6 +52,7 @@ libgtk-vnc-2.0.so.0:vnc_display_set_lossy_encoding
 libgtk-vnc-2.0.so.0:vnc_display_set_pointer_grab
 libgtk-vnc-2.0.so.0:vnc_display_set_pointer_local
 libgtk-vnc-2.0.so.0:vnc_display_set_read_only
+libgtk-vnc-2.0.so.0:vnc_display_set_rotation
 libgtk-vnc-2.0.so.0:vnc_display_set_scaling
 libgtk-vnc-2.0.so.0:vnc_display_set_shared_flag
 libgtk-vnc-2.0.so.0:vnc_display_set_smoothing
