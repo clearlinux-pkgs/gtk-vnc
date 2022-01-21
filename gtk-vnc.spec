@@ -4,7 +4,7 @@
 #
 Name     : gtk-vnc
 Version  : 1.3.0
-Release  : 17
+Release  : 18
 URL      : https://download.gnome.org/sources/gtk-vnc/1.3/gtk-vnc-1.3.0.tar.xz
 Source0  : https://download.gnome.org/sources/gtk-vnc/1.3/gtk-vnc-1.3.0.tar.xz
 Summary  : A GTK widget for VNC clients
@@ -12,6 +12,7 @@ Group    : Development/Tools
 License  : BSD-3-Clause GPL-2.0 LGPL-2.1 LGPL-2.1+
 Requires: gtk-vnc-bin = %{version}-%{release}
 Requires: gtk-vnc-data = %{version}-%{release}
+Requires: gtk-vnc-filemap = %{version}-%{release}
 Requires: gtk-vnc-lib = %{version}-%{release}
 Requires: gtk-vnc-license = %{version}-%{release}
 Requires: gtk-vnc-locales = %{version}-%{release}
@@ -38,6 +39,7 @@ Summary: bin components for the gtk-vnc package.
 Group: Binaries
 Requires: gtk-vnc-data = %{version}-%{release}
 Requires: gtk-vnc-license = %{version}-%{release}
+Requires: gtk-vnc-filemap = %{version}-%{release}
 
 %description bin
 bin components for the gtk-vnc package.
@@ -64,11 +66,20 @@ Requires: gtk-vnc = %{version}-%{release}
 dev components for the gtk-vnc package.
 
 
+%package filemap
+Summary: filemap components for the gtk-vnc package.
+Group: Default
+
+%description filemap
+filemap components for the gtk-vnc package.
+
+
 %package lib
 Summary: lib components for the gtk-vnc package.
 Group: Libraries
 Requires: gtk-vnc-data = %{version}-%{release}
 Requires: gtk-vnc-license = %{version}-%{release}
+Requires: gtk-vnc-filemap = %{version}-%{release}
 
 %description lib
 lib components for the gtk-vnc package.
@@ -101,13 +112,16 @@ man components for the gtk-vnc package.
 %prep
 %setup -q -n gtk-vnc-1.3.0
 cd %{_builddir}/gtk-vnc-1.3.0
+pushd ..
+cp -a gtk-vnc-1.3.0 buildavx2
+popd
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1637606909
+export SOURCE_DATE_EPOCH=1642786180
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -118,6 +132,8 @@ export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto "
 CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --libdir=lib64 --prefix=/usr --buildtype=plain   builddir
 ninja -v -C builddir
+CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 -O3" CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 " LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3" meson --libdir=lib64 --prefix=/usr --buildtype=plain   builddiravx2
+ninja -v -C builddiravx2
 
 %check
 export LANG=C.UTF-8
@@ -131,8 +147,10 @@ mkdir -p %{buildroot}/usr/share/package-licenses/gtk-vnc
 cp %{_builddir}/gtk-vnc-1.3.0/COPYING.LIB %{buildroot}/usr/share/package-licenses/gtk-vnc/81221edbef5521188d99b7c699d326e85b8c3e87
 cp %{_builddir}/gtk-vnc-1.3.0/subprojects/keycodemapdb/LICENSE.BSD %{buildroot}/usr/share/package-licenses/gtk-vnc/ea5b412c09f3b29ba1d81a61b878c5c16ffe69d8
 cp %{_builddir}/gtk-vnc-1.3.0/subprojects/keycodemapdb/LICENSE.GPL2 %{buildroot}/usr/share/package-licenses/gtk-vnc/06877624ea5c77efe3b7e39b0f909eda6e25a4ec
+DESTDIR=%{buildroot}-v3 ninja -C builddiravx2 install
 DESTDIR=%{buildroot} ninja -C builddir install
 %find_lang gtk-vnc
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
@@ -140,6 +158,7 @@ DESTDIR=%{buildroot} ninja -C builddir install
 %files bin
 %defattr(-,root,root,-)
 /usr/bin/gvnccapture
+/usr/share/clear/optimized-elf/bin*
 
 %files data
 %defattr(-,root,root,-)
@@ -184,6 +203,10 @@ DESTDIR=%{buildroot} ninja -C builddir install
 /usr/lib64/pkgconfig/gvnc-1.0.pc
 /usr/lib64/pkgconfig/gvncpulse-1.0.pc
 
+%files filemap
+%defattr(-,root,root,-)
+/usr/share/clear/filemap/filemap-gtk-vnc
+
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libgtk-vnc-2.0.so.0
@@ -192,6 +215,7 @@ DESTDIR=%{buildroot} ninja -C builddir install
 /usr/lib64/libgvnc-1.0.so.0.0.1
 /usr/lib64/libgvncpulse-1.0.so.0
 /usr/lib64/libgvncpulse-1.0.so.0.0.1
+/usr/share/clear/optimized-elf/lib*
 
 %files license
 %defattr(0644,root,root,0755)
