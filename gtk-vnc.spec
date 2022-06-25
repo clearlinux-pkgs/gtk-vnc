@@ -4,7 +4,7 @@
 #
 Name     : gtk-vnc
 Version  : 1.3.0
-Release  : 20
+Release  : 21
 URL      : https://download.gnome.org/sources/gtk-vnc/1.3/gtk-vnc-1.3.0.tar.xz
 Source0  : https://download.gnome.org/sources/gtk-vnc/1.3/gtk-vnc-1.3.0.tar.xz
 Summary  : A GTK widget for VNC clients
@@ -121,7 +121,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1642786180
+export SOURCE_DATE_EPOCH=1656123980
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -150,7 +150,7 @@ cp %{_builddir}/gtk-vnc-1.3.0/subprojects/keycodemapdb/LICENSE.GPL2 %{buildroot}
 DESTDIR=%{buildroot}-v3 ninja -C builddiravx2 install
 DESTDIR=%{buildroot} ninja -C builddir install
 %find_lang gtk-vnc
-/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
@@ -209,13 +209,21 @@ DESTDIR=%{buildroot} ninja -C builddir install
 
 %files lib
 %defattr(-,root,root,-)
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgtk-vnc-2.0.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgtk-vnc-2.0.so.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgtk-vnc-2.0.so.0.0.2
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgvnc-1.0.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgvnc-1.0.so.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgvnc-1.0.so.0.0.1
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgvncpulse-1.0.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgvncpulse-1.0.so.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgvncpulse-1.0.so.0.0.1
 /usr/lib64/libgtk-vnc-2.0.so.0
 /usr/lib64/libgtk-vnc-2.0.so.0.0.2
 /usr/lib64/libgvnc-1.0.so.0
 /usr/lib64/libgvnc-1.0.so.0.0.1
 /usr/lib64/libgvncpulse-1.0.so.0
 /usr/lib64/libgvncpulse-1.0.so.0.0.1
-/usr/share/clear/optimized-elf/lib*
 
 %files license
 %defattr(0644,root,root,0755)
