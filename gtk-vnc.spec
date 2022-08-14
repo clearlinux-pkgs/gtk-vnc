@@ -4,7 +4,7 @@
 #
 Name     : gtk-vnc
 Version  : 1.3.1
-Release  : 23
+Release  : 24
 URL      : https://download.gnome.org/sources/gtk-vnc/1.3/gtk-vnc-1.3.1.tar.xz
 Source0  : https://download.gnome.org/sources/gtk-vnc/1.3/gtk-vnc-1.3.1.tar.xz
 Summary  : A GTK widget for VNC clients
