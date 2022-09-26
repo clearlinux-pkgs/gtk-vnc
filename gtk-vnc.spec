@@ -4,12 +4,12 @@
 #
 Name     : gtk-vnc
 Version  : 1.3.1
-Release  : 27
+Release  : 28
 URL      : https://download.gnome.org/sources/gtk-vnc/1.3/gtk-vnc-1.3.1.tar.xz
 Source0  : https://download.gnome.org/sources/gtk-vnc/1.3/gtk-vnc-1.3.1.tar.xz
 Summary  : A GTK widget for VNC clients
 Group    : Development/Tools
-License  : BSD-3-Clause GPL-2.0 LGPL-2.1 LGPL-2.1+
+License  : BSD-3-Clause GPL-2.0 LGPL-2.0+ LGPL-2.1
 Requires: gtk-vnc-bin = %{version}-%{release}
 Requires: gtk-vnc-data = %{version}-%{release}
 Requires: gtk-vnc-filemap = %{version}-%{release}
@@ -121,7 +121,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1657818298
+export SOURCE_DATE_EPOCH=1664155962
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -144,9 +144,9 @@ meson test -C builddir --print-errorlogs
 
 %install
 mkdir -p %{buildroot}/usr/share/package-licenses/gtk-vnc
-cp %{_builddir}/gtk-vnc-1.3.1/COPYING.LIB %{buildroot}/usr/share/package-licenses/gtk-vnc/81221edbef5521188d99b7c699d326e85b8c3e87
-cp %{_builddir}/gtk-vnc-1.3.1/subprojects/keycodemapdb/LICENSE.BSD %{buildroot}/usr/share/package-licenses/gtk-vnc/ea5b412c09f3b29ba1d81a61b878c5c16ffe69d8
-cp %{_builddir}/gtk-vnc-1.3.1/subprojects/keycodemapdb/LICENSE.GPL2 %{buildroot}/usr/share/package-licenses/gtk-vnc/06877624ea5c77efe3b7e39b0f909eda6e25a4ec
+cp %{_builddir}/gtk-vnc-%{version}/COPYING.LIB %{buildroot}/usr/share/package-licenses/gtk-vnc/81221edbef5521188d99b7c699d326e85b8c3e87 || :
+cp %{_builddir}/gtk-vnc-%{version}/subprojects/keycodemapdb/LICENSE.BSD %{buildroot}/usr/share/package-licenses/gtk-vnc/ea5b412c09f3b29ba1d81a61b878c5c16ffe69d8 || :
+cp %{_builddir}/gtk-vnc-%{version}/subprojects/keycodemapdb/LICENSE.GPL2 %{buildroot}/usr/share/package-licenses/gtk-vnc/06877624ea5c77efe3b7e39b0f909eda6e25a4ec || :
 DESTDIR=%{buildroot}-v3 ninja -C builddiravx2 install
 DESTDIR=%{buildroot} ninja -C builddir install
 %find_lang gtk-vnc
