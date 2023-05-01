@@ -5,7 +5,7 @@
 #
 Name     : gtk-vnc
 Version  : 1.3.1
-Release  : 31
+Release  : 32
 URL      : https://download.gnome.org/sources/gtk-vnc/1.3/gtk-vnc-1.3.1.tar.xz
 Source0  : https://download.gnome.org/sources/gtk-vnc/1.3/gtk-vnc-1.3.1.tar.xz
 Summary  : A GTK widget for VNC clients
@@ -13,7 +13,6 @@ Group    : Development/Tools
 License  : BSD-3-Clause GPL-2.0 LGPL-2.0+ LGPL-2.1
 Requires: gtk-vnc-bin = %{version}-%{release}
 Requires: gtk-vnc-data = %{version}-%{release}
-Requires: gtk-vnc-filemap = %{version}-%{release}
 Requires: gtk-vnc-lib = %{version}-%{release}
 Requires: gtk-vnc-license = %{version}-%{release}
 Requires: gtk-vnc-locales = %{version}-%{release}
@@ -43,7 +42,6 @@ Summary: bin components for the gtk-vnc package.
 Group: Binaries
 Requires: gtk-vnc-data = %{version}-%{release}
 Requires: gtk-vnc-license = %{version}-%{release}
-Requires: gtk-vnc-filemap = %{version}-%{release}
 
 %description bin
 bin components for the gtk-vnc package.
@@ -70,20 +68,11 @@ Requires: gtk-vnc = %{version}-%{release}
 dev components for the gtk-vnc package.
 
 
-%package filemap
-Summary: filemap components for the gtk-vnc package.
-Group: Default
-
-%description filemap
-filemap components for the gtk-vnc package.
-
-
 %package lib
 Summary: lib components for the gtk-vnc package.
 Group: Libraries
 Requires: gtk-vnc-data = %{version}-%{release}
 Requires: gtk-vnc-license = %{version}-%{release}
-Requires: gtk-vnc-filemap = %{version}-%{release}
 
 %description lib
 lib components for the gtk-vnc package.
@@ -125,15 +114,15 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1680036298
+export SOURCE_DATE_EPOCH=1682982437
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
 CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --libdir=lib64 --prefix=/usr --buildtype=plain   builddir
 ninja -v -C builddir
 CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 -O3" CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 " LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3" meson --libdir=lib64 --prefix=/usr --buildtype=plain   builddiravx2
@@ -161,8 +150,8 @@ DESTDIR=%{buildroot} ninja -C builddir install
 
 %files bin
 %defattr(-,root,root,-)
+/V3/usr/bin/gvnccapture
 /usr/bin/gvnccapture
-/usr/share/clear/optimized-elf/bin*
 
 %files data
 %defattr(-,root,root,-)
@@ -179,6 +168,9 @@ DESTDIR=%{buildroot} ninja -C builddir install
 
 %files dev
 %defattr(-,root,root,-)
+/V3/usr/lib64/libgtk-vnc-2.0.so
+/V3/usr/lib64/libgvnc-1.0.so
+/V3/usr/lib64/libgvncpulse-1.0.so
 /usr/include/gtk-vnc-2.0/gtk-vnc.h
 /usr/include/gtk-vnc-2.0/vnccairoframebuffer.h
 /usr/include/gtk-vnc-2.0/vncdisplay.h
@@ -200,9 +192,6 @@ DESTDIR=%{buildroot} ninja -C builddir install
 /usr/include/gvnc-1.0/vncversion.h
 /usr/include/gvncpulse-1.0/gvncpulse.h
 /usr/include/gvncpulse-1.0/vncaudiopulse.h
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgtk-vnc-2.0.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgvnc-1.0.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgvncpulse-1.0.so
 /usr/lib64/libgtk-vnc-2.0.so
 /usr/lib64/libgvnc-1.0.so
 /usr/lib64/libgvncpulse-1.0.so
@@ -210,18 +199,14 @@ DESTDIR=%{buildroot} ninja -C builddir install
 /usr/lib64/pkgconfig/gvnc-1.0.pc
 /usr/lib64/pkgconfig/gvncpulse-1.0.pc
 
-%files filemap
-%defattr(-,root,root,-)
-/usr/share/clear/filemap/filemap-gtk-vnc
-
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgtk-vnc-2.0.so.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgtk-vnc-2.0.so.0.0.2
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgvnc-1.0.so.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgvnc-1.0.so.0.0.1
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgvncpulse-1.0.so.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgvncpulse-1.0.so.0.0.1
+/V3/usr/lib64/libgtk-vnc-2.0.so.0
+/V3/usr/lib64/libgtk-vnc-2.0.so.0.0.2
+/V3/usr/lib64/libgvnc-1.0.so.0
+/V3/usr/lib64/libgvnc-1.0.so.0.0.1
+/V3/usr/lib64/libgvncpulse-1.0.so.0
+/V3/usr/lib64/libgvncpulse-1.0.so.0.0.1
 /usr/lib64/libgtk-vnc-2.0.so.0
 /usr/lib64/libgtk-vnc-2.0.so.0.0.2
 /usr/lib64/libgvnc-1.0.so.0
