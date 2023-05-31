@@ -5,7 +5,7 @@
 #
 Name     : gtk-vnc
 Version  : 1.3.1
-Release  : 32
+Release  : 33
 URL      : https://download.gnome.org/sources/gtk-vnc/1.3/gtk-vnc-1.3.1.tar.xz
 Source0  : https://download.gnome.org/sources/gtk-vnc/1.3/gtk-vnc-1.3.1.tar.xz
 Summary  : A GTK widget for VNC clients
@@ -114,7 +114,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1682982437
+export SOURCE_DATE_EPOCH=1685550717
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -168,9 +168,6 @@ DESTDIR=%{buildroot} ninja -C builddir install
 
 %files dev
 %defattr(-,root,root,-)
-/V3/usr/lib64/libgtk-vnc-2.0.so
-/V3/usr/lib64/libgvnc-1.0.so
-/V3/usr/lib64/libgvncpulse-1.0.so
 /usr/include/gtk-vnc-2.0/gtk-vnc.h
 /usr/include/gtk-vnc-2.0/vnccairoframebuffer.h
 /usr/include/gtk-vnc-2.0/vncdisplay.h
@@ -201,11 +198,8 @@ DESTDIR=%{buildroot} ninja -C builddir install
 
 %files lib
 %defattr(-,root,root,-)
-/V3/usr/lib64/libgtk-vnc-2.0.so.0
 /V3/usr/lib64/libgtk-vnc-2.0.so.0.0.2
-/V3/usr/lib64/libgvnc-1.0.so.0
 /V3/usr/lib64/libgvnc-1.0.so.0.0.1
-/V3/usr/lib64/libgvncpulse-1.0.so.0
 /V3/usr/lib64/libgvncpulse-1.0.so.0.0.1
 /usr/lib64/libgtk-vnc-2.0.so.0
 /usr/lib64/libgtk-vnc-2.0.so.0.0.2
